@@ -32,9 +32,11 @@ const storage = new StandaloneStorage(config.Storage, function (err) {
     .filter((eth) => networks[eth].filter((addr) => addr.internal === false && addr.family === "IPv4").length)
     .map((eth) => networks[eth])[0];
 
+  const dockerIpAddress = (process.env["HOSTIP"] || ip.address);
+  
   const data = {
     type: "list_page",
-    items: [{ hostname: dockerHostName, ip: ip.address }],
+    items: [{ hostname: dockerHostName, ip: dockerIpAddress }],
   };
 
   const key = "global/servers/0";
